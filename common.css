@@ -1,0 +1,27 @@
+@font-face {
+  font-family: "FiraGo";
+  src: url(./assets/font/Download_Folder_FiraGO_1001/Fonts/FiraGO_TTF_1001/Roman/FiraGO-ExtraBold.ttf)
+    format("truetype");
+  font-weight: 800;
+}
+
+@font-face {
+  font-family: "FiraGo";
+  src: url(./assets/font/Download_Folder_FiraGO_1001/Fonts/FiraGO_TTF_1001/Roman/FiraGO-Medium.ttf)
+    format("truetype");
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: "FiraGo";
+  src: url(./assets/font/Download_Folder_FiraGO_1001/Fonts/FiraGO_TTF_1001/Roman/FiraGO-Regular.ttf)
+    format("truetype");
+  font-weight: 400;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "FiraGo";
+}
