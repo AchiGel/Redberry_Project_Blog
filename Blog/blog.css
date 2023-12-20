@@ -1,0 +1,153 @@
+body {
+  width: 100vw;
+  overflow-x: hidden;
+}
+
+main {
+  padding: 120px 25%;
+  display: flex;
+  flex-direction: column;
+}
+
+.back-btn {
+  position: fixed;
+  left: 76px;
+}
+
+main .blog-bg {
+  width: 100%;
+  margin-bottom: 40px;
+}
+
+main h4 {
+  margin-bottom: 8px;
+  color: #1a1a1f;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px; /* 125% */
+}
+
+main h6 {
+  margin-bottom: 24px;
+  color: #85858d;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 16px; /* 133.333% */
+}
+
+main h2 {
+  margin-bottom: 24px;
+  color: #1a1a1f;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 40px; /* 125% */
+}
+
+main article {
+  margin-bottom: 40px;
+  color: #404049;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 28px; /* 175% */
+}
+
+.blog-slider {
+  padding: 58px 76px 475px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.slider-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.slider-head h2 {
+  color: #1a1a1f;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 40px; /* 125% */
+}
+
+.slider-head .btns {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+}
+
+.btns button {
+  background: transparent;
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+
+.blogs-container {
+  display: flex;
+  gap: 32px;
+}
+.blogPost {
+  max-width: 408px;
+}
+
+.blog-photo {
+  border-radius: 12px;
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+.blogPost h4 {
+  margin-bottom: 8px;
+  color: #1a1a1f;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px; /* 125% */
+}
+
+.blogPost h6 {
+  margin-bottom: 16px;
+  color: #85858d;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 16px; /* 133.333% */
+}
+
+.blogPost h2 {
+  margin-bottom: 16px;
+  color: #1a1a1f;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 28px; /* 140% */
+}
+
+.blogPost p {
+  margin-bottom: 16px;
+  color: #404049;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 28px; /* 175% */
+}
+
+.blogPost a {
+  color: #5d37f3;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px; /* 142.857% */
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
