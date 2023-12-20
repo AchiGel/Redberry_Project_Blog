@@ -8,12 +8,30 @@
     <link rel="stylesheet" href="./blog.css" />
   </head>
   <body>
+    <div class="modal">
+      <form class="login">
+        <img class="closeBtn" src="../assets/images/cross.svg" alt="" />
+        <h2>შესვლა</h2>
+        <label for="email">ელ-ფოსტა</label>
+        <input
+          name="email"
+          id="email"
+          type="email"
+          placeholder="Example@redberry.ge"
+        />
+        <span id="warningMessage"
+          ><img class="warning" src="../assets/images/info-circle.svg" alt="" />
+          ელ-ფოსტა არ მოიძებნა</span
+        >
+        <button>შესვლა</button>
+      </form>
+    </div>
     <div class="container">
       <header>
         <a href=""
           ><img src="../assets/images/LOGO-02 3.svg" alt="Redberry Logo"
         /></a>
-        <button>შესვლა</button>
+        <button id="loginBtn">შესვლა</button>
       </header>
       <main>
         <a href="../index.html"
@@ -122,5 +140,7 @@
         </div>
       </section>
     </div>
+
+    <script src="../Login/login-validation.js"></script>
   </body>
 </html>
