@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Blog</title>
+    <link rel="stylesheet" href="../common.css" />
+    <link rel="stylesheet" href="./add_blog.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header class="add_blog_header">
+        <a href=""
+          ><img src="../assets/images/LOGO-02 3.svg" alt="Redberry Logo"
+        /></a>
+      </header>
+      <main>
+        <a href="../index.html"
+          ><img src="../assets/images/Arrow-back-grey.svg" alt=""
+        /></a>
+        <div class="add_blog">
+          <h2>ბლოგის დამატება</h2>
+          <form
+            action="/submit-blog"
+            method="post"
+            enctype="multipart/form-data"
+          >
+            <div class="upload-image">
+              <label>ატვირთეთ ფოტო</label>
+              <input type="file" id="image" name="image" accept="image/*" />
+            </div>
+            <div class="upload-author">
+              <label for="author">ავტორი *</label>
+              <input
+                type="text"
+                id="author"
+                name="author"
+                required
+                placeholder="შეიყვნეთ ავტორი"
+              />
+              <ul>
+                <li>მინიმუმ 4 სიმბოლო</li>
+                <li>მინიმუმ ორი სიტყვა</li>
+                <li>მხოლოდ ქართული სიმბოლოები</li>
+              </ul>
+            </div>
+            <div class="upload-title">
+              <label for="title">სათური *</label>
+              <input
+                type="text"
+                id="title"
+                name="title"
+                required
+                placeholder="შეიყვნეთ სათაური"
+              />
+              <span>მინიმუმ 2 სიმბოლო</span>
+            </div>
+            <div class="blog-body-upload">
+              <label for="body">აღწერა *</label>
+              <textarea
+                id="body"
+                name="body"
+                required
+                placeholder="შეიყვნეთ აღწერა"
+              ></textarea>
+              <span>მინიმუმ 2 სიმბოლო</span>
+            </div>
+            <div class="upload-date">
+              <label for="date">გამოქვეყნების თარიღი *</label>
+              <input type="date" id="date" name="date" required />
+            </div>
+            <div class="upload-categories">
+              <label for="categories">კატეგორია *</label>
+              <select id="categories" name="categories" multiple></select>
+            </div>
+            <div class="upload-email">
+              <label for="email-upload">ელ-ფოსტა</label>
+              <input
+                type="email"
+                id="email-upload"
+                name="email"
+                required
+                placeholder="Example@redberry.ge"
+              />
+            </div>
+
+            <input class="submit-btn" type="submit" value="გამოქვეყნება" />
+          </form>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
