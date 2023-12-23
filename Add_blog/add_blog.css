@@ -91,11 +91,25 @@ form div {
 }
 
 .upload-email {
-  grid-area: 5/1/5/3;
+  grid-area: 5/1/5/2;
+}
+
+.spanPasive {
+  display: none;
+}
+
+.spanActive {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #ea1919;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px; /* 166.667% */
 }
 
 .submit-btn {
-  cursor: pointer;
   grid-area: 6/2/6/2;
   border-radius: 8px;
   background: #e4e3eb;
