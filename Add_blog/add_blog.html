@@ -20,12 +20,7 @@
         /></a>
         <div class="add_blog">
           <h2>ბლოგის დამატება</h2>
-          <form
-            id="postBlogForm"
-            action="/submit-blog"
-            method="post"
-            enctype="multipart/form-data"
-          >
+          <form id="postBlogForm" enctype="multipart/form-data">
             <div class="upload-image">
               <label>ატვირთეთ ფოტო</label>
               <input
@@ -63,25 +58,23 @@
               <span>მინიმუმ 2 სიმბოლო</span>
             </div>
             <div class="blog-body-upload">
-              <label for="body">აღწერა *</label>
+              <label for="description">აღწერა *</label>
               <textarea
-                id="body"
-                name="body"
+                id="description"
+                name="description"
                 required
                 placeholder="შეიყვნეთ აღწერა"
               ></textarea>
               <span>მინიმუმ 2 სიმბოლო</span>
             </div>
             <div class="upload-date">
-              <label for="date">გამოქვეყნების თარიღი *</label>
-              <input type="date" id="date" name="date" required />
+              <label for="publish_date">გამოქვეყნების თარიღი *</label>
+              <input type="date" id="date" name="publish_date" required />
             </div>
             <div class="upload-categories">
               <label for="categories">კატეგორია *</label>
               <select id="categories" name="categories" multiple required>
                 <option value="">აირჩიეთ კატეგორია</option>
-                <option value="dsadsad">კატეგორია</option>
-                <option value="sdsdfaa">კატეგორია</option>
               </select>
             </div>
             <div class="upload-email">

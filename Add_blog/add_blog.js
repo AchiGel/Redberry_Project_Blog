@@ -4,13 +4,53 @@ const postAuthor = document.querySelector("#author");
 const postAuthorWarning = document.querySelectorAll(".upload-author ul li");
 const postTitle = document.querySelector("#title");
 const postTitleWarning = document.querySelector(".upload-title span");
-const postDescr = document.querySelector("#body");
+const postDescr = document.querySelector("#description");
 const postDescrWarning = document.querySelector(".blog-body-upload span");
 const postdate = document.querySelector("#date");
 const postcategories = document.querySelector("#categories");
 const postEmail = document.querySelector("#email-upload");
 const postEmailWarning = document.querySelector(".upload-email span");
 const postSubmit = document.querySelector("#upload-submit");
+
+async function loadCategories() {
+  try {
+    const token =
+      "9a18c528c3e35ec5e8d3497d24f2cf5e9029a874227ebb98261fe1cb4bf32c58";
+    const response = await fetch(
+      "https://api.blog.redberryinternship.ge/api/categories",
+      {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error(`Error ${response.status}: ${response.statusText}`);
+    }
+
+    const dataJson = await response.json();
+    const categories = await dataJson.data;
+    displayCategories(categories);
+  } catch (error) {
+    console.error("There was a problem with the fetch operation:", error);
+  }
+}
+
+loadCategories();
+
+function displayCategories(categories) {
+  categories.forEach((element) => {
+    let categoriesOptions = document.createElement("option");
+    categoriesOptions.textContent = element.title;
+    categoriesOptions.value = element.title;
+    categoriesOptions.id = element.id;
+    categoriesOptions.style.backgroundColor = element.background_color;
+    postcategories.appendChild(categoriesOptions);
+  });
+}
 
 function validateAuthor() {
   const authorValue = postAuthor.value.trim();
@@ -144,19 +184,62 @@ postcategories.addEventListener("change", validateCategories);
 
 postEmail.addEventListener("input", validateEmail);
 
-postBlogForm.addEventListener("submit", (e) => {
+//-------------------------------------------------------------//
+
+postBlogForm.addEventListener("submit", async function (e) {
   e.preventDefault();
-  if (
+
+  const isFormValid =
     validateAuthor() &&
     validateTitle() &&
     validateDescr() &&
     validateDate() &&
-    validateCategories()
-  ) {
-    postSubmit.style.background = "#5D37F3";
+    validateCategories();
+
+  if (isFormValid) {
+    postSubmit.style.background = "#4721DD";
     postSubmit.style.cursor = "pointer";
+
+    try {
+      const token =
+        "9a18c528c3e35ec5e8d3497d24f2cf5e9029a874227ebb98261fe1cb4bf32c58";
+      const apiUrl = "https://api.blog.redberryinternship.ge/api/blogs";
+
+      let X = [];
+
+      for (let i = 0; i < postcategories.selectedOptions.length; i++) {
+        X.push(postcategories.selectedOptions[i].id);
+      }
+
+      const formData = new FormData(this);
+
+      const data = {
+        author: formData.get("author"),
+        title: formData.get("title"),
+        description: formData.get("description"),
+        publish_date: formData.get("publish_date"),
+        categories: X,
+        image: formData.get("image"),
+      };
+
+      console.log(data);
+
+      const response = await fetch(apiUrl, {
+        method: "POST",
+        headers: {
+          accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(data),
+      });
+
+      const responseJson = await response.json();
+      console.log(responseJson);
+    } catch (error) {
+      console.error("Error:", error.message);
+    }
   } else {
-    postSubmit.style.background = "";
-    postSubmit.style.cursor = "pointer";
+    console.error("Form validation failed.");
   }
 });
