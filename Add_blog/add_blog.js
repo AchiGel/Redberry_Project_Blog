@@ -184,7 +184,20 @@ postcategories.addEventListener("change", validateCategories);
 
 postEmail.addEventListener("input", validateEmail);
 
-//-------------------------------------------------------------//
+//------------------------------------------------------------//
+
+const token =
+  "9a18c528c3e35ec5e8d3497d24f2cf5e9029a874227ebb98261fe1cb4bf32c58";
+const apiUrl = "https://api.blog.redberryinternship.ge/api/blogs";
+
+function categoriesToSubmit() {
+  let arr = [];
+  for (let cat of postcategories.selectedOptions) {
+    arr.push(cat.id);
+  }
+
+  return arr;
+}
 
 postBlogForm.addEventListener("submit", async function (e) {
   e.preventDefault();
@@ -200,46 +213,26 @@ postBlogForm.addEventListener("submit", async function (e) {
     postSubmit.style.background = "#4721DD";
     postSubmit.style.cursor = "pointer";
 
-    try {
-      const token =
-        "9a18c528c3e35ec5e8d3497d24f2cf5e9029a874227ebb98261fe1cb4bf32c58";
-      const apiUrl = "https://api.blog.redberryinternship.ge/api/blogs";
+    const formData = new FormData();
+    formData.append("title", postTitle.value);
+    formData.append("description", postDescr.value);
+    formData.append("author", postAuthor.value);
+    formData.append("publish_date", postdate.value);
+    formData.append("categories", JSON.stringify(categoriesToSubmit()));
+    formData.append("email", postEmail.value);
+    formData.append("image", postImage.files[0]);
 
-      let X = [];
-
-      for (let i = 0; i < postcategories.selectedOptions.length; i++) {
-        X.push(postcategories.selectedOptions[i].id);
-      }
-
-      const formData = new FormData(this);
-
-      const data = {
-        author: formData.get("author"),
-        title: formData.get("title"),
-        description: formData.get("description"),
-        publish_date: formData.get("publish_date"),
-        categories: X,
-        image: formData.get("image"),
-      };
-
-      console.log(data);
-
-      const response = await fetch(apiUrl, {
-        method: "POST",
-        headers: {
-          accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(data),
-      });
-
-      const responseJson = await response.json();
-      console.log(responseJson);
-    } catch (error) {
-      console.error("Error:", error.message);
-    }
+    const response = await fetch(apiUrl, {
+      method: "POST",
+      headers: {
+        accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: formData,
+    });
   } else {
+    postSubmit.style.background = "";
+    postSubmit.style.cursor = "";
     console.error("Form validation failed.");
   }
 });

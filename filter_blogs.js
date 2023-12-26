@@ -26,6 +26,17 @@ async function getBlogs() {
     const blogs = await dataJson.data;
 
     blogs.map((items) => {
+      let categoriesListForBlog = document.createElement("ul");
+      categoriesListForBlog.classList.add("categoriesList");
+      categoriesListForBlog.classList.add("categoriesListForBlog");
+      for (let cat of items.categories) {
+        let category = document.createElement("li");
+        category.textContent = cat.title;
+        category.style.color = cat.background_color;
+        category.style.backgroundColor = cat.background_color + "14";
+        categoriesListForBlog.appendChild(category);
+      }
+
       const blogPost = document.createElement("div");
       blogPost.classList.add("blogPost");
       let blogInner = `<img class="blog-photo" src="${items.image}" alt="" />
@@ -41,6 +52,8 @@ async function getBlogs() {
             <img class="arrowLogo" src="./assets/images/Arrow.png" alt=""
           /></a>`;
       blogPost.innerHTML = blogInner;
+      let categoriesContainer = blogPost.querySelector(".blogs-categories");
+      categoriesContainer.appendChild(categoriesListForBlog);
       blogsArea.append(blogPost);
     });
   } catch (error) {

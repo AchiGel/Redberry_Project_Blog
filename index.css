@@ -60,6 +60,10 @@ body {
   border-radius: 30px;
 }
 
+.categoriesListForBlog {
+  flex-wrap: wrap;
+}
+
 .chosenLi {
   border: 1px solid #000;
 }
@@ -91,6 +95,8 @@ main {
 .blog-photo {
   border-radius: 12px;
   width: 100%;
+  height: 100%;
+  object-fit: cover;
   margin-bottom: 24px;
 }
 
