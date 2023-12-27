@@ -61,7 +61,10 @@ body {
 }
 
 .categoriesListForBlog {
+  display: flex;
   flex-wrap: wrap;
+  margin-bottom: 16px;
+  gap: 16px;
 }
 
 .chosenLi {
