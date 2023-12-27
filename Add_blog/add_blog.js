@@ -12,6 +12,13 @@ const postEmail = document.querySelector("#email-upload");
 const postEmailWarning = document.querySelector(".upload-email span");
 const postSubmit = document.querySelector("#upload-submit");
 
+//-----------Modal Buttons---------------//
+const addBlogModal = document.querySelector(".modal");
+const modalCloseBtn = document.querySelector(".add_blog_modal_closeBtn");
+const modalBackToHomeBtn = document.querySelector(".add_blog_modal_Ok");
+
+//-----------Modal Buttons---------------//
+
 async function loadCategories() {
   try {
     const token =
@@ -199,6 +206,22 @@ function categoriesToSubmit() {
   return arr;
 }
 
+function showModal() {
+  addBlogModal.style.display = "block";
+
+  modalCloseBtn.addEventListener("click", closeModal);
+
+  modalBackToHomeBtn.addEventListener("click", backToHomePage);
+}
+
+function closeModal() {
+  addBlogModal.style.display = "none"; //
+}
+
+function backToHomePage() {
+  window.location.href = "../index.html";
+}
+
 postBlogForm.addEventListener("submit", async function (e) {
   e.preventDefault();
 
@@ -210,29 +233,40 @@ postBlogForm.addEventListener("submit", async function (e) {
     validateCategories();
 
   if (isFormValid) {
-    postSubmit.style.background = "#4721DD";
-    postSubmit.style.cursor = "pointer";
+    try {
+      postSubmit.style.background = "#4721DD";
+      postSubmit.style.cursor = "pointer";
 
-    const formData = new FormData();
-    formData.append("title", postTitle.value);
-    formData.append("description", postDescr.value);
-    formData.append("author", postAuthor.value);
-    formData.append("publish_date", postdate.value);
-    formData.append("categories", JSON.stringify(categoriesToSubmit()));
-    formData.append("email", postEmail.value);
-    formData.append("image", postImage.files[0]);
+      const formData = new FormData();
+      formData.append("title", postTitle.value);
+      formData.append("description", postDescr.value);
+      formData.append("author", postAuthor.value);
+      formData.append("publish_date", postdate.value);
+      formData.append("categories", JSON.stringify(categoriesToSubmit()));
+      formData.append("email", postEmail.value);
+      formData.append("image", postImage.files[0]);
 
-    const response = await fetch(apiUrl, {
-      method: "POST",
-      headers: {
-        accept: "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: formData,
-    });
+      const response = await fetch(apiUrl, {
+        method: "POST",
+        headers: {
+          accept: "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
+      });
+
+      console.log(response);
+      if (response.ok) {
+        showModal();
+      } else {
+        console.log("Form submission failed.");
+      }
+    } catch (error) {
+      console.log("Error submitting the form:", error);
+    }
   } else {
     postSubmit.style.background = "";
     postSubmit.style.cursor = "";
-    console.error("Form validation failed.");
+    console.log("Form validation failed.");
   }
 });
