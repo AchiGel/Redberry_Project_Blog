@@ -111,7 +111,7 @@ function createBlogPostElement(blog, categoriesListForBlog, blogText) {
     <h2>${blog.title}</h2>
     <div class="blogs-categories"></div>
     <p class="blogs-text"></p>
-    <a href="#">სრულად ნახვა<img class="arrowLogo" src="./assets/images/Arrow.png" alt="" /></a>
+    <a href="#" class="viewFullBlog">სრულად ნახვა<img class="arrowLogo" src="./assets/images/Arrow.png" alt="" /></a>
   `;
 
   const categoriesContainer = blogPost.querySelector(".blogs-categories");
@@ -119,6 +119,12 @@ function createBlogPostElement(blog, categoriesListForBlog, blogText) {
 
   const blogsText = blogPost.querySelector(".blogs-text");
   blogsText.textContent = blogText;
+
+  const viewFullBlog = blogPost.querySelector(".viewFullBlog");
+  viewFullBlog.addEventListener("click", function (event) {
+    event.preventDefault();
+    window.location.href = "./Blog/blog.html";
+  });
 
   return blogPost;
 }
