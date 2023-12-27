@@ -95,8 +95,9 @@ loginInput.addEventListener("input", (e) => {
 });
 
 loginBtn.addEventListener("click", () => {
-  if (loginBtn.innerText === "შესვლა") modal.style.display = "block";
-  if (loginBtn.innerText === "დაამატე ბლოგი") {
+  if (loginBtn.innerText === "შესვლა") {
+    modal.style.display = "block";
+  } else if (loginBtn.innerText === "დაამატე ბლოგი") {
     window.location.href = "../Add_blog/add_blog.html";
   }
 });
