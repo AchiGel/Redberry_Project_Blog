@@ -66,4 +66,7 @@ async function getExactBlog(id) {
   }
 }
 
-getExactBlog("1933");
+window.addEventListener("DOMContentLoaded", () => {
+  const id = localStorage.getItem("clickedBlogId");
+  getExactBlog(id);
+});

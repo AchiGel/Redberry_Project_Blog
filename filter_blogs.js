@@ -8,7 +8,6 @@ async function getBlogs() {
 
     let filteredBlogs = filterBlogsByCategories(allBlogs, selectedCategories);
 
-    // Clear existing blogs before displaying new ones
     clearBlogs();
 
     displayBlogs(filteredBlogs);
@@ -18,7 +17,6 @@ async function getBlogs() {
 }
 
 function clearBlogs() {
-  // Remove all existing blogs from the DOM
   blogsArea.innerHTML = "";
 }
 
@@ -56,7 +54,7 @@ function getSelectedCategoriesFromLocalStorage() {
 
 function filterBlogsByCategories(allBlogs, selectedCategories) {
   if (selectedCategories.length === 0) {
-    return allBlogs; // Return all blogs if no categories are selected
+    return allBlogs;
   }
 
   return allBlogs.filter((blog) =>
@@ -123,18 +121,21 @@ function createBlogPostElement(blog, categoriesListForBlog, blogText) {
   const viewFullBlog = blogPost.querySelector(".viewFullBlog");
   viewFullBlog.addEventListener("click", function (event) {
     event.preventDefault();
+    saveClickedBlogIdToLocalStorage(blog.id);
     window.location.href = "./Blog/blog.html";
   });
 
   return blogPost;
 }
 
-function handleGetBlogsError(error) {
-  console.error(error);
-  // Additional error handling logic if needed
+function saveClickedBlogIdToLocalStorage(clickedBlogId) {
+  localStorage.setItem("clickedBlogId", clickedBlogId);
 }
 
-// Example: Trigger getBlogs when categories change
+function handleGetBlogsError(error) {
+  console.error(error);
+}
+
 categories.addEventListener("change", getBlogs);
 
 window.addEventListener("DOMContentLoaded", () => {
