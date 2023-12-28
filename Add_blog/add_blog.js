@@ -61,6 +61,56 @@ function displayCategories(categories) {
     categoriesOptions.appendChild(categorielOptionsInput);
     postcategories.appendChild(categoriesOptions);
   });
+
+  const checkboxes = document.querySelectorAll(
+    ".dropdown-options input[type='checkbox']"
+  );
+
+  postCategoriesSelected.addEventListener("click", () => {
+    postcategories.classList.toggle("dropdown-options-block");
+  });
+
+  checkboxes.forEach(function (checkbox) {
+    checkbox.addEventListener("change", function () {
+      const selectedOptions = Array.from(checkboxes)
+        .filter((cb) => cb.checked)
+        .map((cb) => {
+          const optionText = cb.parentElement.textContent
+            .trim()
+            .replace("×", "")
+            .trim();
+          return `<span class="selected-option" data-value="${cb.value}">${optionText}<span class="close-icon" data-value="${cb.value}">&times;</span></span>`;
+        });
+
+      postCategoriesSelected.innerHTML =
+        selectedOptions.join(" ") || "აირჩიეთ კატეგორია";
+
+      if (!checkbox.checked) {
+        const selectedOption = postCategoriesSelected.querySelector(
+          `[data-value="${checkbox.value}"]`
+        );
+        if (selectedOption) {
+          selectedOption.remove();
+        }
+      }
+    });
+  });
+
+  postCategoriesSelected.addEventListener("click", function (event) {
+    if (event.target.classList.contains("close-icon")) {
+      const value = event.target.dataset.value;
+      const checkbox = document.querySelector(
+        `.dropdown-options input[value="${value}"]`
+      );
+      if (checkbox) {
+        checkbox.checked = false;
+        event.target.parentElement.remove();
+      }
+    }
+    if (postCategoriesSelected.innerText === "") {
+      postCategoriesSelected.textContent = "Choose your options";
+    }
+  });
 }
 
 function validateAuthor() {
@@ -279,61 +329,3 @@ postBlogForm.addEventListener("submit", async function (e) {
 });
 
 //-------------------------------------------------------//
-
-function dropDown() {
-  const dropdownSelected = document.querySelector(".dropdown-selected");
-  const dropdownOptions = document.querySelector(".dropdown-options");
-  const checkboxes = document.querySelectorAll(
-    ".dropdown-options input[type='checkbox']"
-  );
-
-  function toggleOptionsDisplay() {
-    dropdownOptions.classList.toggle("dropdown-options-block");
-  }
-
-  dropdownSelected.addEventListener("click", toggleOptionsDisplay);
-
-  checkboxes.forEach(function (checkbox) {
-    checkbox.addEventListener("click", function () {
-      const selectedOptions = Array.from(checkboxes)
-        .filter((cb) => cb.checked)
-        .map((cb) => {
-          const optionText = cb.parentElement.textContent
-            .trim()
-            .replace("×", "")
-            .trim();
-          return `<span class="selected-option" data-value="${cb.value}">${optionText}<span class="close-icon" data-value="${cb.value}">&times;</span></span>`;
-        });
-
-      dropdownSelected.innerHTML =
-        selectedOptions.join(" ") || "Choose your options";
-
-      if (!checkbox.checked) {
-        const selectedOption = dropdownSelected.querySelector(
-          `[data-value="${checkbox.value}"]`
-        );
-        if (selectedOption) {
-          selectedOption.remove();
-        }
-      }
-    });
-  });
-
-  dropdownSelected.addEventListener("click", function (event) {
-    if (event.target.classList.contains("close-icon")) {
-      const value = event.target.dataset.value;
-      const checkbox = document.querySelector(
-        `.dropdown-options input[value="${value}"]`
-      );
-      if (checkbox) {
-        checkbox.checked = false;
-        event.target.parentElement.remove();
-      }
-    }
-    if (dropdownSelected.innerText === "") {
-      dropdownSelected.textContent = "Choose your options";
-    }
-  });
-}
-
-dropDown();
