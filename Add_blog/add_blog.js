@@ -79,7 +79,9 @@ function displayCategories(categories) {
             .trim()
             .replace("×", "")
             .trim();
-          return `<span class="selected-option" data-value="${cb.value}">${optionText}<span class="close-icon" data-value="${cb.value}">&times;</span></span>`;
+          const optionBackgroundColor = cb.parentElement.style.backgroundColor;
+          const optionId = cb.id;
+          return `<span id="${optionId}" style="background-color:${optionBackgroundColor}" class="selected-option" data-value="${cb.value}">${optionText}<span class="close-icon" data-value="${cb.value}">&times;</span></span>`;
         });
 
       postCategoriesSelected.innerHTML =
@@ -213,7 +215,7 @@ function validateCategories() {
     postCategoriesSelected.style.border = "1px solid #EA1919";
     postCategoriesSelected.style.background = "#FAF2F3";
     return false;
-  } else {
+  } else if (checkboxes.length > 0) {
     postCategoriesSelected.style.border = "1px solid #14D81C";
     postCategoriesSelected.style.background = "#F8FFF8";
     return true;
@@ -256,7 +258,7 @@ const apiUrl = "https://api.blog.redberryinternship.ge/api/blogs";
 
 function categoriesToSubmit() {
   let arr = [];
-  for (let cat of postcategories.selectedOptions) {
+  for (let cat of postCategoriesSelected.children) {
     arr.push(cat.id);
   }
 

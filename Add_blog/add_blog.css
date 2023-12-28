@@ -193,11 +193,14 @@ form div {
 
 .close-icon {
   cursor: pointer;
-  margin-left: 5px;
-  color: #999;
+  font-size: 2em;
+  color: #fff;
 }
 
 .selected-option {
+  display: flex;
+  gap: 8px;
+  color: #fff;
   padding: 8px 12px;
   border-radius: 30px;
 }
