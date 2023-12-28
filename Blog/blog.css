@@ -14,12 +14,17 @@ main {
   left: 76px;
 }
 
-main .blog-bg {
+.blog-section {
+  max-width: 720px;
+}
+
+.blog-section .blog-bg {
+  border-radius: 12px;
   width: 100%;
   margin-bottom: 40px;
 }
 
-main h4 {
+.blog-section .blog-author {
   margin-bottom: 8px;
   color: #1a1a1f;
   font-size: 16px;
@@ -28,7 +33,7 @@ main h4 {
   line-height: 20px; /* 125% */
 }
 
-main h6 {
+.blog-section .blog-date {
   margin-bottom: 24px;
   color: #85858d;
   font-size: 12px;
@@ -37,7 +42,7 @@ main h6 {
   line-height: 16px; /* 133.333% */
 }
 
-main h2 {
+.blog-section .blog-title {
   margin-bottom: 24px;
   color: #1a1a1f;
   font-size: 32px;
@@ -46,7 +51,26 @@ main h2 {
   line-height: 40px; /* 125% */
 }
 
-main article {
+.blog-section .blogs-categories {
+  margin-bottom: 40px;
+}
+
+.blogs-categories .categories-list {
+  display: flex;
+  gap: 16px;
+}
+
+.categories-list li {
+  border-radius: 30px;
+  padding: 6px 10px;
+  list-style: none;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px;
+}
+
+.blog-section .blog-article {
   margin-bottom: 40px;
   color: #404049;
   font-size: 16px;
