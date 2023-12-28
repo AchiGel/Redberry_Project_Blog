@@ -134,3 +134,68 @@ form div {
   padding: 8px 16px;
   border-radius: 30px;
 }
+
+/*--------------------------------------------------*/
+
+.dropdown-selected {
+  color: #85858d;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  padding: 12px 16px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  cursor: pointer;
+  border-radius: 12px;
+  border: 1px solid #e4e3eb;
+  background-color: #fcfcfd;
+}
+
+.dropdown-selected::after {
+  content: url(../assets/images/arrow-down.svg);
+}
+
+.dropdown-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  padding: 5px;
+  background-color: #fff;
+  display: none;
+  border-radius: 12px;
+  border: 1px solid #e4e3eb;
+  box-shadow: 2px 4px 8px 0px rgba(0, 0, 0, 0.08);
+}
+
+.dropdown-options-block {
+  display: flex;
+  flex-direction: row;
+}
+
+.dropdown-options label {
+  display: block;
+  margin-bottom: 0;
+  color: #ffffff;
+  padding: 8px 16px;
+  cursor: pointer;
+  border-radius: 30px;
+}
+
+.dropdown-options input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+}
+
+.close-icon {
+  cursor: pointer;
+  margin-left: 5px;
+  color: #999;
+}
+
+.selected-option {
+  padding: 5px;
+  border-radius: 30px;
+  background-color: aquamarine;
+}

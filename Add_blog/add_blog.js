@@ -8,6 +8,7 @@ const postDescr = document.querySelector("#description");
 const postDescrWarning = document.querySelector(".blog-body-upload span");
 const postdate = document.querySelector("#date");
 const postcategories = document.querySelector("#categories");
+const postCategoriesSelected = document.querySelector("#categoriesSelected");
 const postEmail = document.querySelector("#email-upload");
 const postEmailWarning = document.querySelector(".upload-email span");
 const postSubmit = document.querySelector("#upload-submit");
@@ -50,11 +51,14 @@ loadCategories();
 
 function displayCategories(categories) {
   categories.forEach((element) => {
-    let categoriesOptions = document.createElement("option");
+    let categoriesOptions = document.createElement("label");
+    let categorielOptionsInput = document.createElement("input");
+    categorielOptionsInput.type = "checkbox";
     categoriesOptions.textContent = element.title;
-    categoriesOptions.value = element.title;
-    categoriesOptions.id = element.id;
+    categorielOptionsInput.value = element.title;
+    categorielOptionsInput.id = element.id;
     categoriesOptions.style.backgroundColor = element.background_color;
+    categoriesOptions.appendChild(categorielOptionsInput);
     postcategories.appendChild(categoriesOptions);
   });
 }
@@ -151,16 +155,19 @@ function validateDate() {
 }
 
 function validateCategories() {
-  const categoriesValue = postcategories.value;
-  if (categoriesValue === "" || postcategories.selectedOptions.length === 0) {
-    postcategories.style.border = "1px solid #EA1919";
-    postcategories.style.background = "#FAF2F3";
+  const checkboxes = document.querySelectorAll(
+    '#categories input[type="checkbox"]:checked'
+  );
+
+  if (checkboxes.length === 0) {
+    postCategoriesSelected.style.border = "1px solid #EA1919";
+    postCategoriesSelected.style.background = "#FAF2F3";
     return false;
-  } else if (categoriesValue !== "") {
-    postcategories.style.border = "1px solid #14D81C";
-    postcategories.style.background = "#F8FFF8";
+  } else {
+    postCategoriesSelected.style.border = "1px solid #14D81C";
+    postCategoriesSelected.style.background = "#F8FFF8";
+    return true;
   }
-  return true;
 }
 
 function validateEmail() {
@@ -270,3 +277,63 @@ postBlogForm.addEventListener("submit", async function (e) {
     console.log("Form validation failed.");
   }
 });
+
+//-------------------------------------------------------//
+
+function dropDown() {
+  const dropdownSelected = document.querySelector(".dropdown-selected");
+  const dropdownOptions = document.querySelector(".dropdown-options");
+  const checkboxes = document.querySelectorAll(
+    ".dropdown-options input[type='checkbox']"
+  );
+
+  function toggleOptionsDisplay() {
+    dropdownOptions.classList.toggle("dropdown-options-block");
+  }
+
+  dropdownSelected.addEventListener("click", toggleOptionsDisplay);
+
+  checkboxes.forEach(function (checkbox) {
+    checkbox.addEventListener("click", function () {
+      const selectedOptions = Array.from(checkboxes)
+        .filter((cb) => cb.checked)
+        .map((cb) => {
+          const optionText = cb.parentElement.textContent
+            .trim()
+            .replace("×", "")
+            .trim();
+          return `<span class="selected-option" data-value="${cb.value}">${optionText}<span class="close-icon" data-value="${cb.value}">&times;</span></span>`;
+        });
+
+      dropdownSelected.innerHTML =
+        selectedOptions.join(" ") || "Choose your options";
+
+      if (!checkbox.checked) {
+        const selectedOption = dropdownSelected.querySelector(
+          `[data-value="${checkbox.value}"]`
+        );
+        if (selectedOption) {
+          selectedOption.remove();
+        }
+      }
+    });
+  });
+
+  dropdownSelected.addEventListener("click", function (event) {
+    if (event.target.classList.contains("close-icon")) {
+      const value = event.target.dataset.value;
+      const checkbox = document.querySelector(
+        `.dropdown-options input[value="${value}"]`
+      );
+      if (checkbox) {
+        checkbox.checked = false;
+        event.target.parentElement.remove();
+      }
+    }
+    if (dropdownSelected.innerText === "") {
+      dropdownSelected.textContent = "Choose your options";
+    }
+  });
+}
+
+dropDown();
