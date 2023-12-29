@@ -6,7 +6,7 @@ const worningMessage = document.querySelector("#warningMessage");
 const closeBtn = document.querySelector(".closeBtn");
 const modal = document.querySelector(".modal");
 
-const successfulLogin = `<form>
+const successfulLogin = `<form class="login">
       <img class="closeBtn" src="https://svgshare.com/getbyhash/sha1-PRNSwMCM+7R81r9dgj+3jiuCnRQ=" alt="" />
       <img style="margin-bottom:16px;" src="https://svgshare.com/getbyhash/sha1-lfe7SPACmJyBUAJJtxmkqY0U/7g=" alt="" />
       <h2 style="margin-bottom:48px;">წარმატებული ავტორიზაცია</h2>
@@ -33,9 +33,22 @@ function resetInputStyling() {
 
 // Function to handle successful login
 function handleSuccessfulLogin() {
-  loginForm.innerHTML = successfulLogin;
-  loginBtn.innerText = "დაამატე ბლოგი";
+  localStorage.setItem("authorizationStatus", "authenticated");
+  modal.innerHTML = successfulLogin;
+  setButtonBasedOnAuthorization();
 }
+
+function setButtonBasedOnAuthorization() {
+  const authorizationStatus = localStorage.getItem("authorizationStatus");
+  if (authorizationStatus === "authenticated") {
+    loginBtn.innerText = "დაამატე ბლოგი";
+  } else {
+    loginBtn.innerText = "შესვლა";
+  }
+}
+
+// Call this function initially to set the button text based on authentication status
+setButtonBasedOnAuthorization();
 
 loginForm.addEventListener("submit", async function checkUser(e) {
   try {
@@ -95,9 +108,15 @@ loginInput.addEventListener("input", (e) => {
 });
 
 loginBtn.addEventListener("click", () => {
-  if (loginBtn.innerText === "შესვლა") {
-    modal.style.display = "block";
-  } else if (loginBtn.innerText === "დაამატე ბლოგი") {
+  const authorizationStatus = localStorage.getItem("authorizationStatus");
+  if (
+    authorizationStatus === "authenticated" &&
+    window.location.pathname === "/index.html"
+  ) {
     window.location.href = "./Add_blog/add_blog.html";
+  } else if (authorizationStatus === "authenticated") {
+    window.location.href = "../Add_blog/add_blog.html";
+  } else {
+    modal.style.display = "block";
   }
 });
