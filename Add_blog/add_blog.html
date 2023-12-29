@@ -38,8 +38,13 @@
         <div class="add_blog">
           <h2>ბლოგის დამატება</h2>
           <form id="postBlogForm">
-            <div class="upload-image">
-              <label>ატვირთეთ ფოტო</label>
+            <label class="image-label" for="upload-image">ატვირთეთ ფოტო</label>
+            <div id="upload-image" class="upload-image">
+              <div class="upload-image-icon"></div>
+              <label for="image" class="select-pic"
+                >ჩააგდეთ ფაილი აქ ან
+                <span class="span-label">აირჩიეთ ფაილი</span></label
+              >
               <input
                 type="file"
                 id="image"
@@ -47,6 +52,13 @@
                 accept="image/*"
                 required
               />
+              <div id="preview">
+                <div class="image-details">
+                  <div class="icon"></div>
+                  <span id="fileName"></span>
+                  <div class="close"></div>
+                </div>
+              </div>
             </div>
             <div class="upload-author">
               <label for="author">ავტორი *</label>
@@ -64,7 +76,7 @@
               </ul>
             </div>
             <div class="upload-title">
-              <label for="title">სათური *</label>
+              <label for="title">სათაური *</label>
               <input
                 type="text"
                 id="title"

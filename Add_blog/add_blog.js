@@ -1,5 +1,11 @@
 const postBlogForm = document.querySelector("#postBlogForm");
+//------image form variables--------//
+const postImageForm = document.querySelector("#upload-image");
 const postImage = document.querySelector("#image");
+const preview = document.getElementById("preview");
+const fileNameSpan = document.getElementById("fileName");
+const closeBtn = document.querySelector("#preview .close");
+//------image form variables--------//
 const postAuthor = document.querySelector("#author");
 const postAuthorWarning = document.querySelectorAll(".upload-author ul li");
 const postTitle = document.querySelector("#title");
@@ -19,6 +25,8 @@ const modalCloseBtn = document.querySelector(".add_blog_modal_closeBtn");
 const modalBackToHomeBtn = document.querySelector(".add_blog_modal_Ok");
 
 //-----------Modal Buttons---------------//
+
+//-------------loading categories on the page ---------------------//
 
 async function loadCategories() {
   try {
@@ -48,6 +56,10 @@ async function loadCategories() {
 }
 
 loadCategories();
+
+//-------------loading categories on the page ---------------------//
+
+//-------------display and handle categories on the page ---------------------//
 
 function displayCategories(categories) {
   categories.forEach((element) => {
@@ -114,6 +126,10 @@ function displayCategories(categories) {
     }
   });
 }
+
+//-------------display and handle categories on the page ---------------------//
+
+//-------------Validations ---------------------//
 
 function validateAuthor() {
   const authorValue = postAuthor.value.trim();
@@ -250,6 +266,74 @@ postcategories.addEventListener("change", validateCategories);
 
 postEmail.addEventListener("input", validateEmail);
 
+//-------------Validations ---------------------//
+
+//------------- Return Image From form ---------------------//
+
+function handleImageForm() {
+  postImageForm.addEventListener("dragover", function (e) {
+    e.preventDefault();
+    postImageForm.classList.add("dragover");
+  });
+
+  postImageForm.addEventListener("dragleave", function (e) {
+    e.preventDefault();
+    postImageForm.classList.remove("dragover");
+  });
+
+  postImageForm.addEventListener("drop", function (e) {
+    e.preventDefault();
+    postImageForm.classList.remove("dragover");
+    const file = e.dataTransfer.files[0];
+    if (file) {
+      postImageForm.style.height = "56px";
+      postImageForm.style.backgroundColor = "#F2F2FA";
+      postImageForm.style.border = "none";
+      document.querySelector(".upload-image-icon").style.display = "none";
+      document.querySelector("#preview .icon").style.position = "absolute";
+      document.querySelector("#preview .icon").style.left = "0px";
+      document.querySelector("#fileName").style.position = "absolute";
+      document.querySelector("#fileName").style.left = "52px";
+      fileNameSpan.textContent = file.name;
+      preview.style.display = "flex";
+      document.querySelector(".select-pic").style.display = "none";
+
+      postImage.files = e.dataTransfer.files;
+    }
+  });
+
+  postImage.addEventListener("change", function () {
+    const file = this.files[0];
+    if (file) {
+      postImageForm.style.height = "56px";
+      postImageForm.style.backgroundColor = "#F2F2FA";
+      postImageForm.style.border = "none";
+      document.querySelector(".upload-image-icon").style.display = "none";
+      document.querySelector("#preview .icon").style.position = "absolute";
+      document.querySelector("#preview .icon").style.left = "0px";
+      document.querySelector("#fileName").style.position = "absolute";
+      document.querySelector("#fileName").style.left = "52px";
+      fileNameSpan.textContent = file.name;
+      preview.style.display = "flex";
+      document.querySelector(".select-pic").style.display = "none";
+    }
+  });
+
+  closeBtn.addEventListener("click", function () {
+    postImageForm.style.height = "";
+    preview.style.display = "none";
+    postImage.value = null;
+    document.querySelector(".select-pic").style.display = "block";
+    document.querySelector(".upload-image-icon").style.display = "block";
+    postImageForm.style.border = "1px dashed #85858d";
+    postImageForm.style.backgroundColor = "#f4f3ff";
+  });
+}
+
+handleImageForm();
+
+//------------- Return Image From form ---------------------//
+
 //------------------------------------------------------------//
 
 const token =
@@ -270,15 +354,14 @@ function showModal() {
 
   modalCloseBtn.addEventListener("click", closeModal);
 
-  modalBackToHomeBtn.addEventListener("click", backToHomePage);
+  modalBackToHomeBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    window.location.href = "../index.html";
+  });
 }
 
 function closeModal() {
   addBlogModal.style.display = "none"; //
-}
-
-function backToHomePage() {
-  window.location.href = "../index.html";
 }
 
 postBlogForm.addEventListener("submit", async function (e) {
