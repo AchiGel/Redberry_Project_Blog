@@ -254,19 +254,70 @@ function validateEmail() {
   return true;
 }
 
-postAuthor.addEventListener("input", validateAuthor);
+postAuthor.addEventListener("input", () => {
+  localStorage.setItem("author", postAuthor.value);
+  validateAuthor();
+});
 
-postTitle.addEventListener("input", validateTitle);
+postTitle.addEventListener("input", () => {
+  localStorage.setItem("title", postTitle.value);
+  validateTitle();
+});
 
-postDescr.addEventListener("input", validateDescr);
+postDescr.addEventListener("input", () => {
+  localStorage.setItem("description", postDescr.value);
+  validateDescr();
+});
 
-postdate.addEventListener("input", validateDate);
+postdate.addEventListener("input", () => {
+  localStorage.setItem("date", postdate.value);
+  validateDate();
+});
 
 postcategories.addEventListener("change", validateCategories);
 
-postEmail.addEventListener("input", validateEmail);
+postEmail.addEventListener("input", () => {
+  localStorage.setItem("email", postEmail.value);
+  validateEmail();
+});
 
 //-------------Validations ---------------------//
+
+//--------------------- Take input values from local storage ----------------------//
+
+window.addEventListener("load", function () {
+  const savedAuthor = localStorage.getItem("author");
+  if (savedAuthor) {
+    postAuthor.value = savedAuthor;
+    validateAuthor();
+  }
+
+  const savedTitle = localStorage.getItem("title");
+  if (savedTitle) {
+    postTitle.value = savedTitle;
+    validateTitle();
+  }
+
+  const savedDescr = localStorage.getItem("description");
+  if (savedDescr) {
+    postDescr.value = savedDescr;
+    validateDescr();
+  }
+
+  const savedDate = localStorage.getItem("date");
+  if (savedDate) {
+    postdate.value = savedDate;
+    validateDate();
+  }
+
+  const savedEmail = localStorage.getItem("email");
+  if (savedEmail) {
+    postEmail.value = savedEmail;
+    validateEmail();
+  }
+});
+
+//--------------------- Take input values from local storage ----------------------//
 
 //------------- Return Image From form ---------------------//
 
@@ -364,6 +415,18 @@ function closeModal() {
   addBlogModal.style.display = "none"; //
 }
 
+//---------------------- clear local storage ------------------------//
+
+function clearLocalStorage() {
+  localStorage.removeItem("author");
+  localStorage.removeItem("title");
+  localStorage.removeItem("date");
+  localStorage.removeItem("email");
+  localStorage.removeItem("description");
+}
+
+//---------------------- clear local storage ------------------------//
+
 postBlogForm.addEventListener("submit", async function (e) {
   e.preventDefault();
 
@@ -400,6 +463,7 @@ postBlogForm.addEventListener("submit", async function (e) {
       console.log(response);
       if (response.ok) {
         showModal();
+        clearLocalStorage();
       } else {
         console.log("Form submission failed.");
       }
