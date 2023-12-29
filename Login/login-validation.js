@@ -115,7 +115,7 @@ loginBtn.addEventListener("click", () => {
   ) {
     window.location.href = "./Add_blog/add_blog.html";
   } else if (authorizationStatus === "authenticated") {
-    window.location.href = "../Add_blog/add_blog.html";
+    window.location.href = "./Add_blog/add_blog.html";
   } else {
     modal.style.display = "block";
   }
