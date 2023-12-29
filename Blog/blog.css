@@ -15,7 +15,7 @@ main {
 }
 
 .blog-section {
-  max-width: 720px;
+  width: 100%;
 }
 
 .blog-section .blog-bg {
@@ -115,6 +115,7 @@ main {
 }
 
 .blogs-container {
+  flex-wrap: wrap;
   display: flex;
   gap: 32px;
 }
@@ -124,8 +125,11 @@ main {
 
 .blog-photo {
   border-radius: 12px;
-  width: 100%;
+  width: 408px;
+  height: 328px;
   margin-bottom: 24px;
+  border-radius: 12px;
+  object-fit: cover;
 }
 
 .blogPost h4 {
