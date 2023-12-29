@@ -110,8 +110,8 @@ loginInput.addEventListener("input", (e) => {
 loginBtn.addEventListener("click", () => {
   const authorizationStatus = localStorage.getItem("authorizationStatus");
   if (
-    authorizationStatus === "authenticated" ||
-    window.location.pathname === "/index.html"
+    authorizationStatus === "authenticated" &&
+    window.location.pathname === "/Redberry_Project_Blog/index.html"
   ) {
     window.location.href = "./Add_blog/add_blog.html";
   } else if (authorizationStatus === "authenticated") {
