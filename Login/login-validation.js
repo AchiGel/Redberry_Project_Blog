@@ -114,8 +114,10 @@ loginBtn.addEventListener("click", () => {
     window.location.pathname === "/Redberry_Project_Blog/index.html"
   ) {
     window.location.href = "./Add_blog/add_blog.html";
-  } else if (authorizationStatus === "authenticated") {
-    window.location.href = "Redberry_Project_Blog/Add_blog/add_blog.html";
+  } else if (
+    window.location.pathname === "/Redberry_Project_Blog/Blog/blog.html"
+  ) {
+    window.location.href = "../Add_blog/add_blog.html";
   } else {
     modal.style.display = "block";
   }
